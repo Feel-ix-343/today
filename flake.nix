@@ -22,9 +22,9 @@
             buildInputs = [ pkgs.nushell ];
 
             installPhase = ''
-            mkdir -p $out/bin
-            cp today.nu $out/bin/today
-            chmod +x $out/bin/today
+              mkdir -p $out/bin
+              cp today.nu $out/bin/today
+              chmod +x $out/bin/today
             '';
 
           };
