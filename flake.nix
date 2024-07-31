@@ -13,9 +13,20 @@
           packages = [ pkgs.bashInteractive pkgs.nushell ];
         };
 
-        defaultApp.x86_64-linux =  {
-          type = "app";
-          program = "./bin/today.nu";
+
+        packages.x86_64-linux = pkgs.stdenv.mkDerivation {
+          name = "today";
+          src = ./.;
+          buildInputs = [ pkgs.nushell ];
+
+          installPhase = ''
+            mkdir -p $out/bin
+            cp today.nu $out/bin/today
+            chmod +x $out/bin/today
+          '';
+
         };
+              
+
       });
 }
