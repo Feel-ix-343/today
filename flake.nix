@@ -14,7 +14,7 @@
         };
 
 
-        packages.x86_64-linux = pkgs.stdenv.mkDerivation {
+        defaultPackage.x86_64-linux = pkgs.stdenv.mkDerivation {
             name = "today";
             src = ./.;
             buildInputs = [ pkgs.nushell ];
