@@ -6,7 +6,9 @@
   outputs = { nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+        };
       in
       {
         devShells.default = pkgs.mkShell {
@@ -14,7 +16,7 @@
         };
 
 
-        defaultPackage.x86_64-linux = pkgs.stdenv.mkDerivation {
+        defaultPackage = pkgs.stdenv.mkDerivation {
             name = "today";
             src = ./.;
             buildInputs = [ pkgs.nushell ];
