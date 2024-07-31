@@ -1,5 +1,3 @@
-#!/usr/bin/env nu
-
 
 def main [change: int = 0, --gui] {
     let day = (date now) + ($"($change)day" | into duration)

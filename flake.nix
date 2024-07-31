@@ -11,23 +11,11 @@
         };
       in
       {
-        devShells.default = pkgs.mkShell {
-          packages = [ pkgs.bashInteractive pkgs.nushell ];
+        defaultPackage = pkgs.writeShellApplication {
+          name = "today";
+          runtimeInputs = [ pkgs.nushell ];
+          text = "nu ./today.nu";
         };
-
-
-        defaultPackage = pkgs.stdenv.mkDerivation {
-            name = "today";
-            src = ./.;
-            buildInputs = [ pkgs.nushell ];
-
-            installPhase = ''
-              mkdir -p $out/bin
-              cp today.nu $out/bin/today
-              chmod +x $out/bin/today
-            '';
-
-          };
 
 
       });
