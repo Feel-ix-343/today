@@ -15,18 +15,20 @@
 
 
         package = pkgs.stdenv.mkDerivation {
-          name = "today";
-          src = ./.;
-          buildInputs = [ pkgs.nushell ];
+          x86_64-linux = {
+            name = "today";
+            src = ./.;
+            buildInputs = [ pkgs.nushell ];
 
-          installPhase = ''
+            installPhase = ''
             mkdir -p $out/bin
             cp today.nu $out/bin/today
             chmod +x $out/bin/today
-          '';
+            '';
 
+          };
         };
-              
+
 
       });
 }
