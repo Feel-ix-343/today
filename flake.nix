@@ -12,5 +12,10 @@
         devShells.default = pkgs.mkShell {
           packages = [ pkgs.bashInteractive pkgs.nushell ];
         };
+
+        defaultApp.x86_64-linux =  {
+          type = "app";
+          program = "./bin/today.nu";
+        };
       });
 }
