@@ -4,7 +4,7 @@
 def main [change: int = 0, --gui] {
     let day = (date now) + ($"($change)day" | into duration)
     let day = ($day | date to-record)
-    cd ~/Notes
+    cd ~/notes
 
     let month = if $day.month <  10 {
       "0" + ($day.month | into string)
