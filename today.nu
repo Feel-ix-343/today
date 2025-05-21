@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
 
-def main [change: int = 0, --gui] {
+def main [change: int = 0, --gui, --hx] {
     let day = (date now) + ($"($change)day" | into duration)
     let day = ($day | date to-record)
     cd ~/notes
@@ -20,6 +20,8 @@ def main [change: int = 0, --gui] {
 
     if $gui {
       neovide $"($day.year)-($month)-($day_num).md"
+    } else if $hx {
+      hx  $"($day.year)-($month)-($day_num).md"
     } else {
       nvim $"($day.year)-($month)-($day_num).md"
     }
