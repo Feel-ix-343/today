@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
 
-def main [change: int = 0, --gui, --hx] {
+def main [change: int = 0, --gui, --hx, --x, --c] {
     let day = (date now) + ($"($change)day" | into duration)
     let day = ($day | date to-record)
     cd ~/notes
@@ -18,12 +18,20 @@ def main [change: int = 0, --gui, --hx] {
       $day.day | into string
     }
 
+    let file = $"($day.year)-($month)-($day_num).md"
+
     if $gui {
-      neovide $"($day.year)-($month)-($day_num).md"
+      neovide $file
     } else if $hx {
-      hx  $"($day.year)-($month)-($day_num).md"
+      hx $file
+    } else if $x {
+      if (not ($file | path exists)) { touch $file }
+      codex --skip-git-repo-check $"Use the file '($file)' in this directory as initial context for this session."
+    } else if $c {
+      if (not ($file | path exists)) { touch $file }
+      claude --dangerously-skip-permissions --add-dir (pwd) $"Use the file '($file)' in this directory as initial context for this session."
     } else {
-      nvim $"($day.year)-($month)-($day_num).md"
+      nvim $file
     }
 
 }
