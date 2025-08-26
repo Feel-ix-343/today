@@ -26,10 +26,12 @@ def main [change: int = 0, --gui, --hx, --x, --c] {
       hx $file
     } else if $x {
       if (not ($file | path exists)) { touch $file }
-      codex --skip-git-repo-check $"Use the file '($file)' in this directory as initial context for this session."
+      # Launch Codex and pass a prompt asking to keep today's note in context
+      codex $"Please keep the file '($file)' in this directory as session context."
     } else if $c {
       if (not ($file | path exists)) { touch $file }
-      claude --dangerously-skip-permissions --add-dir (pwd) $"Use the file '($file)' in this directory as initial context for this session."
+      # Launch Claude Code with access to the notes directory
+      claude --dangerously-skip-permissions --add-dir (pwd)
     } else {
       nvim $file
     }
