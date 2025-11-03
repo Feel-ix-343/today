@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
 
-def main [change: int = 0, --gui, --hx, --x, --c] {
+def main [change: int = 0, --gui, --hx, --x, --c, --zed] {
     let day = (date now) + ($"($change)day" | into duration)
     let day = ($day | date to-record)
     cd ~/notes
@@ -32,6 +32,12 @@ def main [change: int = 0, --gui, --hx, --x, --c] {
       if (not ($file | path exists)) { touch $file }
       # Launch Claude Code with access to the notes directory
       claude --dangerously-skip-permissions --add-dir (pwd)
+    } else if $zed {
+      if (which zed | is-empty) {
+        zeditor $file
+      } else {
+        zed $file
+      }
     } else {
       nvim $file
     }
