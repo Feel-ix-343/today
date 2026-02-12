@@ -34,9 +34,9 @@ def main [change: int = 0, --gui, --hx, --x, --c, --zed] {
       claude --dangerously-skip-permissions --add-dir (pwd)
     } else if $zed {
       if (which zed | is-empty) {
-        zeditor $file
+        zeditor . -n $file
       } else {
-        zed $file
+        zed . -n $file
       }
     } else {
       nvim $file
